@@ -163,6 +163,8 @@ watch(() => form.value.sellingPrice, (newVal) => {
 
   form.value.commissionPrice = form.value.sellingPrice * form.value.commission / 100
   form.value.profitPerItem = form.value.sellingPrice - form.value.commissionPrice
+  form.value.total = (form.value.profitPerItem - form.value.itemPrice) * form.value.totalItems
+
 })
 
 watch(() => form.value.itemPrice, (newVal) => {
