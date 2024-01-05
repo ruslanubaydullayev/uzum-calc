@@ -24,7 +24,6 @@
             :disabled="disabled"
             class="py-1.5 px-2.5 text-dark read-only:!text-dark-400 focus:border-0  leading-21 text-sm border-0 outline-0 bg-transparent w-full z-1 relative"
             :class="inputClass"
-            @input="sanitizeInput"
             @blur="(e: Event) => emit('blur', e)"
         />
 
@@ -41,6 +40,8 @@
 <script setup lang="ts">
 
 import { defineProps, defineEmits, ref, watch } from "vue"
+
+
 interface Props {
   id?: string
   type: string
@@ -66,30 +67,26 @@ const emit = defineEmits<{
   (e: "update:modelValue", value: string): void
   (e: "blur", value: Event): void
 }>()
+
 const inputValue = ref("")
+
 watch(
     () => inputValue.value,
     () => {
       emit("update:modelValue", inputValue.value)
     }
 )
+
 watch(
     () => props.defaultValue,
     () => {
-      inputValue.value = props.defaultValue
+      // inputValue.value = props.defaultValue
     },
     {
       immediate: true,
     }
 )
-function sanitizeInput(input) {
-  if (props.validation) {
-    input.target.value = input.target.value.replace(/[^a-zA-Z0-9@_]/g, "")
-    if (input.target.value.charAt(0) !== "@") {
-      inputValue.value = "@" + inputValue.value
-    }
-  }
-}
+
 </script>
 <style>
 /* Apply styles to autofill input field */

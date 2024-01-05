@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container !pt-[100px]">
     <h1 class="text-center font-normal text-primary text-2xl mb-5">Uzum marketda mahsulot sotmoqchimisiz? Kalkulyator
       aynan siz uchun!</h1>
 
@@ -95,6 +95,7 @@
 // import {useApi} from "@/composables/useApi.ts"
 import {ref, watch} from "vue"
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import FormInput from "@/components/Form/Input.vue"
 
 const form = ref({
@@ -178,7 +179,7 @@ watch(() => form.value.totalItems, (newVal) => {
 // const store = useMainStore()
 // const $api = useApi()
 
-const moneyMask = (x: string) => {
+const moneyMask = (x: any) => {
   return x ? x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") : "0"
 }
 </script>
