@@ -1,14 +1,12 @@
 <template>
   <div class="container !pt-[100px]">
-    <h1 class="text-center font-normal text-primary text-2xl mb-5">Uzum marketda mahsulot sotmoqchimisiz? Kalkulyator
+    <h1 class="text-center font-normal text-primary text-xl md:text-2xl mb-5">Uzum marketda mahsulot sotmoqchimisiz? Kalkulyator
       aynan siz uchun!</h1>
-
     <div class="container mx-auto !px-0">
       <div class="max-w-[700px] mx-auto flex flex-col gap-3">
-
         <!--     Narx   -->
         <div class="flex items-center justify-between">
-          <h4 class="text-base font-medium">Narx (so'm)</h4>
+          <h4 class="text-sm md:text-base font-medium">Narx (so'm)</h4>
           <div class="max-w-[220px] w-full">
             <FormInput v-model="form.price" type="number" placeholder=""/>
           </div>
@@ -16,7 +14,7 @@
 
         <!--     Chegirma-->
         <div class="flex items-center justify-between">
-          <h4 class="text-base font-medium">Chegirma (so'm)</h4>
+          <h4 class="text-sm md:text-base font-medium">Chegirma (so'm)</h4>
           <div class="max-w-[220px] w-full">
             <FormInput v-model="form.discount" type="number" placeholder=""/>
           </div>
@@ -24,16 +22,15 @@
 
         <!--     Sotish narxi -->
         <div class="flex items-center justify-between">
-          <h4 class="text-base font-medium">Sotish narxi (so'm)</h4>
+          <h4 class="text-sm md:text-base font-medium">Sotish narxi (so'm)</h4>
           <div class="max-w-[220px] w-full">
-<!--            <input class="outline-0 disabled:bg-white" disabled type="text" v-model="form.sellingPrice"> <span>so'm</span>-->
             <h5>{{ moneyMask(form.sellingPrice) }} so'm</h5>
           </div>
         </div>
 
         <!--     Dona uchun komissiya -->
         <div class="flex items-center justify-between">
-          <h4 class="text-base font-medium">Dona uchun komissiya (so'm)</h4>
+          <h4 class="text-sm md:text-base font-medium">Dona uchun komissiya (so'm)</h4>
           <div class="max-w-[220px] w-full">
             <h5>{{ moneyMask(form.commissionPrice) }} so'm</h5>
           </div>
@@ -41,7 +38,7 @@
 
         <!--        Komissiya-->
         <div class="flex items-center justify-between">
-          <h4 class="text-base font-medium">Komissiya</h4>
+          <h4 class="text-sm md:text-base font-medium">Komissiya</h4>
           <div class="max-w-[220px] w-full">
             <h5>{{ form.commission }}%</h5>
           </div>
@@ -49,7 +46,7 @@
 
         <!--        Har bir dona uchun chiqarish-->
         <div class="flex items-center justify-between">
-          <h4 class="text-base font-medium">Har bir dona uchun chiqarish</h4>
+          <h4 class="text-sm md:text-base font-medium">Har bir dona uchun chiqarish</h4>
           <div class="max-w-[220px] w-full">
             <h5>{{ moneyMask(form.profitPerItem) }} so'm</h5>
           </div>
@@ -63,7 +60,7 @@
 
         <!--       Tannarx-->
         <div class="flex items-center justify-between">
-          <h4 class="text-base font-medium">Siz tovarni qaysi narxda olasiz?</h4>
+          <h4 class="text-sm md:text-base font-medium">Siz tovarni qaysi narxda olasiz?</h4>
           <div class="max-w-[220px] w-full">
             <FormInput v-model="form.itemPrice" type="number" placeholder=""/>
           </div>
@@ -71,7 +68,7 @@
 
         <!--        Umumiy foydani hisoblash-->
         <div class="flex items-center justify-between">
-          <h4 class="text-base font-medium">Necha dona sotmoqchisiz?</h4>
+          <h4 class="text-sm md:text-base font-medium">Necha dona sotmoqchisiz?</h4>
           <div class="max-w-[220px] w-full">
             <FormInput v-model="form.totalItems" type="number"  placeholder=""/>
           </div>
@@ -79,7 +76,7 @@
 
         <!--       Umumiy natija-->
         <div class="flex flex-wrap items-center justify-between gap-2">
-          <h4 class="text-base font-medium">Umumiy natija:</h4>
+          <h4 class="text-sm md:text-base font-medium">Umumiy natija:</h4>
           <div class="max-w-[220px] w-full">
             <h5>Siz <span class="font-bold text-primary">{{ moneyMask(form.total) }}</span> so'm foyda qilishingiz mumkin.</h5>
           </div>
@@ -91,11 +88,8 @@
 </template>
 
 <script lang="ts" setup>
-// import {useMainStore} from "@/store"
-// import {useApi} from "@/composables/useApi.ts"
 import {ref, watch} from "vue"
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import FormInput from "@/components/Form/Input.vue"
 
 const form = ref({
@@ -158,9 +152,6 @@ watch(() => form.value.sellingPrice, (newVal) => {
     form.value.commission = 5
   }
 
-  // else if(newVal >= 5049000) {
-  //   form.value.commission = 5
-  // }
 
   form.value.commissionPrice = form.value.sellingPrice * form.value.commission / 100
   form.value.profitPerItem = form.value.sellingPrice - form.value.commissionPrice
@@ -176,8 +167,6 @@ watch(() => form.value.totalItems, (newVal) => {
   form.value.total = (form.value.profitPerItem - form.value.itemPrice) * newVal
 })
 
-// const store = useMainStore()
-// const $api = useApi()
 
 const moneyMask = (x: any) => {
   return x ? x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") : "0"
@@ -191,13 +180,5 @@ const moneyMask = (x: any) => {
   margin: 0 auto;
   padding: 20px;
 
-}
-
-.title {
-  font-size: 24px;
-  font-weight: 400;
-  color: #333333;
-  margin-bottom: 20px;
-  text-align: center;
 }
 </style>
