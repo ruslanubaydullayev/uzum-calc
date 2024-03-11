@@ -83,6 +83,9 @@
         </div>
 
       </div>
+      <div>
+        <a href="https://www.tirikchilik.uz/activus" target="_blank" class="text-center block text-primary mt-20">Muallifga kofe olib berish</a>
+      </div>
     </div>
   </div>
 </template>
@@ -115,49 +118,27 @@ watch( () => form.value.discount, (newVal) => {
 })
 
 watch(() => form.value.sellingPrice, (newVal) => {
-  if(newVal < 49000) {
-    form.value.commission = 40
-  }
-  else if(newVal >= 49000 && newVal < 99000) {
-    form.value.commission = 35
-  }
-  else if(newVal >= 99000 && newVal < 149000) {
-    form.value.commission = 32
-  }
-  else if(newVal >= 149000 && newVal < 199000) {
-    form.value.commission = 30
-  }
-  else if(newVal >= 199000 && newVal < 299000) {
-    form.value.commission = 25
-  }
-  else if(newVal >= 299000 && newVal < 399000) {
-    form.value.commission = 21
-  }
-  else if(newVal >= 399000 && newVal < 699000) {
-    form.value.commission = 18
-  }
-  else if(newVal >= 699000 && newVal < 998000) {
-    form.value.commission = 15
-  }
-  else if(newVal >= 998000 && newVal < 1999000) {
-    form.value.commission = 10
-  }
-  else if(newVal >= 1999000 && newVal < 2999000) {
-    form.value.commission = 8
-  }
-  else if(newVal >= 2999000 && newVal < 4999000) {
-    form.value.commission = 6
-  }
-  else if(newVal >= 4999000) {
-    form.value.commission = 5
+  const commissionRates = {
+    49000: 40,
+    99000: 35,
+    149000: 32,
+    199000: 30,
+    299000: 25,
+    399000: 21,
+    699000: 18,
+    998000: 15,
+    1999000: 10,
+    2999000: 8,
+    4999000: 6
   }
 
+  let sellingPrice = Object.keys(commissionRates).find(price => newVal < price) || 4999000;
+  form.value.commission = commissionRates[sellingPrice];
 
-  form.value.commissionPrice = form.value.sellingPrice * form.value.commission / 100
-  form.value.profitPerItem = form.value.sellingPrice - form.value.commissionPrice
-  form.value.total = (form.value.profitPerItem - form.value.itemPrice) * form.value.totalItems
-
-})
+  form.value.commissionPrice = form.value.sellingPrice * form.value.commission / 100;
+  form.value.profitPerItem = form.value.sellingPrice - form.value.commissionPrice;
+  form.value.total = (form.value.profitPerItem - form.value.itemPrice) * form.value.totalItems;
+});
 
 watch(() => form.value.itemPrice, (newVal) => {
   form.value.total = (form.value.profitPerItem - newVal) * form.value.totalItems
